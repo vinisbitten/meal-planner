@@ -1,0 +1,6 @@
+FROM golang:latest
+
+WORKDIR /go/src
+ENV PATH="/go/bin:${PATH}"
+
+CMD ["tail", "-f", "/dev/null"]
