@@ -1,6 +1,5 @@
-version: "3"
-#
-#
+version: '3.9'
+
 services:
   # - Golang
   app:
@@ -17,16 +16,30 @@ services:
     image: postgres
     restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres.
+      POSTGRES_USER: chef
+      POSTGRES_PASSWORD: cooking123
+      POSTGRES_DB: mymeals
     volumes:
       - db-data:/var/lib/postgresql/data
-      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./database/fill.sql:/docker-entrypoint-initdb.d/fill.sql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+      - ./database/populate.sql:/docker-entrypoint-initdb.d/docker_postgres_populate.sql
     networks:
       - meal-back-end
     ports:
-      - 5432:5432
+      - "5432:5432"
+  # - PG-Admin
+  admin:
+    container_name: meal-postgres-admin
+    image: dpage/pgadmin4
+    environment: 
+        PGADMIN_DEFAULT_EMAIL: "chef@mymeal.com"
+        PGADMIN_DEFAULT_PASSWORD: "cooking123"
+    networks:
+      - meal-back-end
+    ports: 
+        - "2345:80"
+    depends_on:
+        - database
   # - Nginx
   web:
     container_name: meal-nginx
@@ -38,14 +51,15 @@ services:
     networks:
       - meal-front-end
     ports:
-      - 8080:80
-#
-#
+      - "8080:80"
+    depends_on:
+      - app
+      - database
+
 volumes:
   db-data:
     driver: local
-#
-#
+
 networks:
   # The presence of these objects is sufficient to define them
   meal-front-end: {}
