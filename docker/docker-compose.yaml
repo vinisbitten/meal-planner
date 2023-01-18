@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3"
 #
 #
 services:
@@ -19,18 +19,18 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres.
-      POSTGRES_DB: postgres
     volumes:
       - db-data:/var/lib/postgresql/data
-      - ./database:/docker-entrypoint-initdb.d
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./database/fill.sql:/docker-entrypoint-initdb.d/fill.sql
     networks:
       - meal-back-end
     ports:
       - 5432:5432
-  # - Nginx (reverse proxy) (optional)
+  # - Nginx
   web:
     container_name: meal-nginx
-    image: nginx:latest
+    image: nginx
     restart: always
     volumes:
       - ../internal/nginx/html:/usr/share/nginx/html
