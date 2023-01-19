@@ -18,9 +18,9 @@ services:
     environment:
       POSTGRES_USER: chef
       POSTGRES_PASSWORD: cooking123
-      POSTGRES_DB: mymeals
+      POSTGRES_DB: mymeal
     volumes:
-      - db-data:/var/lib/postgresql/data
+      #- db-data:/var/lib/postgresql/data
       - ./database/init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
       - ./database/populate.sql:/docker-entrypoint-initdb.d/docker_postgres_populate.sql
     networks:

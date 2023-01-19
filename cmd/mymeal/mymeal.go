@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"time"
 
-	entity "github.com/vinisbitten/learning-clean-arch/01/internal/domain"
-	"github.com/vinisbitten/learning-clean-arch/01/internal/infra/local-repo"
-	usecase "github.com/vinisbitten/learning-clean-arch/01/internal/usecases"
+	entity "github.com/vinisbitten/meal-planner/internal/domain"
+	"github.com/vinisbitten/meal-planner/internal/infra"
+	usecase "github.com/vinisbitten/meal-planner/internal/usecases"
 )
 
 func main() {

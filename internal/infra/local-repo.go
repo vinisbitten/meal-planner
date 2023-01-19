@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
-	entity "github.com/vinisbitten/learning-clean-arch/01/internal/domain"
+	entity "github.com/vinisbitten/meal-planner/internal/domain"
 )
 
 type LocalRepository struct {
